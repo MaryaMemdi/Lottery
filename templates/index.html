@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Loan Payment Manager</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      form {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Loan Payment Manager</h1>
+    <form action="/add" method="post">
+      <input type="text" name="name" placeholder="User Name" required />
+      <button type="submit">Add User</button>
+    </form>
+    <br />
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+    <table>
+      <tr>
+        <th>Name</th>
+        {% for month in months %}
+        <th>{{ month }}</th>
+        {% endfor %}
+        <th>Actions</th>
+      </tr>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.Name }}</td>
+        {% for month in months %}
+        <td>
+          <a href="/update/{{ user.Name }}/{{ month }}"
+            >{{ 'Paid' if user[month] else 'Not Paid' }}</a
+          >
+        </td>
+        {% endfor %}
+        <td>
+          <a href="/edit/{{ user.Name }}">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <br />
+    <form action="/add_month" method="post" style="display: inline">
+      <button type="submit">Add Month</button>
+    </form>
+    <form action="/remove_month" method="post" style="display: inline">
+      <button type="submit">Remove Last Month</button>
+    </form>
+    <br />
+    <a href="/unpaid">Show Unpaid Users</a>
+    <br />
+    <a href="/lottery">Conduct Lottery</a>
+    <br />
+    <a href="/lottery_list">View/Edit Lottery List</a>
+    <br />
+    <form action="/reset_lottery" method="post" style="display: inline">
+      <button type="submit">Reset Lottery</button>
+    </form>
+  </body>
+</html>

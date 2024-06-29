@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Unpaid Users</title>
+  </head>
+  <body>
+    <h1>Unpaid Users</h1>
+    <table border="1">
+      <tr>
+        <th>Name</th>
+        <th>Month1</th>
+        <th>Month2</th>
+        <th>Month3</th>
+      </tr>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.Name }}</td>
+        <td>{{ 'Paid' if user.Month1 else 'Not Paid' }}</td>
+        <td>{{ 'Paid' if user.Month2 else 'Not Paid' }}</td>
+        <td>{{ 'Paid' if user.Month3 else 'Not Paid' }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <br />
+    <a href="/">Back</a>
+  </body>
+</html>
